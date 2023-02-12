@@ -20,7 +20,7 @@ jobs:
       - name: Hugo build
         run: |
           cd $GITHUB_WORKSPACE
-          hugo -v          
+          hugo --minify
 
       # 5.
       - name: Rsync Deployments Action
