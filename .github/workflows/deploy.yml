@@ -20,7 +20,7 @@ jobs:
 
       # 3.
       - name: Hugo build
-        run: hugo --minify
+        run: hugo
       # 4.
       - name: Rsync Deployments Action
         uses: Burnett01/rsync-deployments@5.2
