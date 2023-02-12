@@ -16,10 +16,6 @@ jobs:
           hugo-version: "0.90.1"
           extended: true
 
-      # 3.
-      - name: Clone theme
-        run: git submodule update --init --recursive
-
       # 4.
       - name: Hugo build
         run: |
