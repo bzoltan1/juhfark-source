@@ -1,0 +1,38 @@
+name: Continuos Deployment
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1.
+      - uses: actions/checkout@v2
+
+      # 2.
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "0.90.1"
+          extended: true
+
+      # 3.
+      - name: Clone theme
+        run: git submodule update --init --recursive
+
+      # 4.
+      - name: Hugo build
+        run: |
+          cd $GITHUB_WORKSPACE
+          hugo -v          
+
+      # 5.
+      - name: Rsync Deployments Action
+        uses: Burnett01/rsync-deployments@5.2
+        with:
+          switches: -avzr --delete
+          path: public/
+          remote_path: /home/balogh/html/
+          remote_host: juhfark.hu
+          remote_user: balogh
+          remote_key: ${{ secrets.JUHFARK_PRIVATE_SSH_KEY }}
